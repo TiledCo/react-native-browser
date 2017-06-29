@@ -42,7 +42,16 @@ Browser.open('https://google.com/', {
                     hideWebViewBoundaries: false,
                     buttonTintColor: processColor('#d64bbd')
                   });
+
+// To change the presentation style from the default, you can additionally pass in:
+Browser.open('https://google.com/', {
+                    presentationStyle: 'formSheet' // can be one of [undefined, 'pageSheet', 'formSheet']
+                  });
+// For differences, see:
+// https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/PresentingaViewController.html
 ```
+
+
 
 [Descriptions of options and their defaults](https://github.com/TimOliver/TOWebViewController/blob/master/TOWebViewController/TOWebViewController.h)
 
