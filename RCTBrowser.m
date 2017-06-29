@@ -45,6 +45,17 @@ RCT_EXPORT_METHOD(presentUrl:(NSString *)url withOptions:(NSDictionary *)options
     UIViewController *rootVC = [[UIApplication sharedApplication] keyWindow].rootViewController;
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:webVC];
 
+    [options enumerateKeysAndObjectsUsingBlock:^(NSString* key, id obj, BOOL *stop) {
+        if ([key isEqualToString:@"presentationStyle"]) {
+            if ([obj isEqual: @"formSheet"]) {
+                nav.modalPresentationStyle = UIModalPresentationFormSheet;
+            }
+            else if ([obj isEqual: @"pageSheet"]) {
+                nav.modalPresentationStyle = UIModalPresentationPageSheet;
+            }
+        }
+    }];
+
     dispatch_async(dispatch_get_main_queue(), ^{
         [rootVC presentViewController:nav animated:YES completion: nil];
     });
