@@ -6,7 +6,9 @@
 
 RCT_EXPORT_MODULE()
 
-RCT_EXPORT_METHOD(presentUrl:(NSString *)url withOptions:(NSDictionary *)options) {
+RCT_EXPORT_METHOD(presentUrl:(NSString *)url
+                  withOptions:(NSDictionary *)options
+                  modalCompletion:(RCTResponseSenderBlock)modalCompletionHandler) {
 
     TOWebViewController *webVC = [[TOWebViewController alloc] initWithURLString:url];
 
@@ -31,8 +33,6 @@ RCT_EXPORT_METHOD(presentUrl:(NSString *)url withOptions:(NSDictionary *)options
             webVC.disableContextualPopupMenu = ([obj isEqual: @(YES)]);
         } else if ([key isEqualToString:@"hideWebViewBoundaries"]) {
             webVC.hideWebViewBoundaries = ([obj isEqual: @(YES)]);
-        } else if ([key isEqualToString:@"modalCompletionHandler"]) {
-            // TODO: turn this into a callback
         } else if ([key isEqualToString:@"shouldStartLoadRequestHandler"]) {
             // TODO: turn this into a callback
         } else if ([key isEqualToString:@"buttonTintColor"]) {
@@ -41,6 +41,10 @@ RCT_EXPORT_METHOD(presentUrl:(NSString *)url withOptions:(NSDictionary *)options
             // TODO: NOT YET IMPLEMENTED
         }
     }];
+
+    webVC.modalCompletionHandler = ^(void) {
+        modalCompletionHandler(@[[NSNull null]]);
+    };
 
     UIViewController *rootVC = [[UIApplication sharedApplication] keyWindow].rootViewController;
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:webVC];

@@ -10,7 +10,11 @@ var Browser = NativeModules.Browser;
 
 var RCTBrowserExport = {
   open: function(url, options={}) {
-    Browser.presentUrl(url, options);
+    Browser.presentUrl(url, options, function(err) {
+      if (options.modalCompletionHandler) {
+        options.modalCompletionHandler();
+      }
+    });
   },
 };
 
