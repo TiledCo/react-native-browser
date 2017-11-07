@@ -4,7 +4,8 @@
   "description": "Full-featured web browser module for React Native apps, based on TOWebViewController",
   "main": "index.ios.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "grep url .gitmodules | sed 's/.*= //' | while read url; do git clone $url; done"
   },
   "repository": {
     "type": "git",
