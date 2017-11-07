@@ -50,7 +50,20 @@ RCT_EXPORT_METHOD(presentUrl:(NSString *)url
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:webVC];
 
     [options enumerateKeysAndObjectsUsingBlock:^(NSString* key, id obj, BOOL *stop) {
-        if ([key isEqualToString:@"presentationStyle"]) {
+        if ([key isEqualToString:@"barTintColor"]) {
+            UIColor *color = [RCTConvert UIColor:obj];
+
+            nav.navigationBar.barTintColor = color;
+            nav.toolbar.barTintColor = color;
+        } else if ([key isEqualToString:@"titleTintColor"]) {
+            UIColor *color = [RCTConvert UIColor:obj];
+
+            nav.navigationBar.tintColor = color;
+            nav.toolbar.tintColor = color;
+
+            [nav.navigationBar setTitleTextAttributes:
+            @{NSForegroundColorAttributeName:color}];
+        } else if ([key isEqualToString:@"presentationStyle"]) {
             if ([obj isEqual: @"formSheet"]) {
                 nav.modalPresentationStyle = UIModalPresentationFormSheet;
             }
